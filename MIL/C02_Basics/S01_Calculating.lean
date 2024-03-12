@@ -41,10 +41,16 @@ example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c *
   rw [mul_assoc]
 
 example (a b c d e f : ℝ) (h : b * c = e * f) : a * b * c * d = a * e * f * d := by
-  sorry
+  rw [mul_assoc a] -- a * b * c * d = a * (b * c) * d
+  rw [h] -- a * (b * c) * d = a * (e * f) * d
+  rw [← mul_assoc] -- a * (e * f) * d = a * e * f * d
+
 
 example (a b c d : ℝ) (hyp : c = b * a - d) (hyp' : d = a * b) : c = 0 := by
-  sorry
+  rw [hyp] -- c = b * a - d
+  rw [hyp'] -- b * a - d = b * a - a * b
+  rw [mul_comm] -- b * a - a * b = a * b - a * b
+  rw [sub_self] -- a * b - a * b = 0
 
 example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
